@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>TestServer</display-name>
+  
+  <servlet>
+  	<servlet-name>hello</servlet-name>
+  	<servlet-class>com.test.HelloWorldServlet</servlet-class><!-- 경로 -->
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>hello</servlet-name> <!-- 위에 있는 servlet-name과 동일하게 -->
+  	<url-pattern>/hello</url-pattern> <!-- hello와 연결 -->
+  </servlet-mapping>
+
+
+<!-- 연결 방법 -  http://localhost:8080/TestServer/hello -->
+
+
+
+
+<!-- urlmapping -->
+	<servlet>
+		<servlet-name>UrlMappingEx01</servlet-name>
+		<servlet-class>com.test.lesson01.UrlMappingEx01</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UrlMappingEx01</servlet-name>
+		<url-pattern>/servlet/ex01</url-pattern> <!-- 이 주소를 입력하면 UrlMappingEx01으로 이동해서 UrlMappingEx01안에 있는 내용을 실행 -->
+	</servlet-mapping>
+	
+	
+<!-- quiz01 -->
+	<servlet>
+		<servlet-name>UrlMappingQuiz01</servlet-name>
+		<servlet-class>com.test.lesson01.UrlMappingQuiz01</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UrlMappingQuiz01</servlet-name>
+		<url-pattern>/servlet/quiz01</url-pattern>
+	</servlet-mapping>
+	
+<!-- quiz02 -->
+<servlet>
+		<servlet-name>UrlMappingQuiz02</servlet-name>
+		<servlet-class>com.test.lesson01.UrlMappingQuiz02</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>UrlMappingQuiz02</servlet-name>
+		<url-pattern>/servlet/quiz02</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 한글 깨짐 방지하기 위한 인코딩 필터 추가 -->
+	<filter>
+			<filter-name>CharacterEncodingFilter</filter-name>
+			<filter-class>com.test.filter.CharacterEncodingFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern> <!-- 모든 요청에 대해서 필터 적용 = /* -->
+	</filter-mapping>
+	
+	<!-- 어노테이션(@WebFilter("/*"))로 하던지, 아니면 위 방식으로 하던지 -->
+</web-app>
