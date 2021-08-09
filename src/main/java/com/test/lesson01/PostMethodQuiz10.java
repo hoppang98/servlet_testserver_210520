@@ -44,6 +44,8 @@ public class PostMethodQuiz10 extends HttpServlet {
 		out.print("</body></html>");
 		
 		
+		
+		out.print(""); // 이슈연습을 위한 불필요한 코드
 	}
 
 }
