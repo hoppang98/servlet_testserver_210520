@@ -1,24 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.*" %>
 <%@ page import="java.util.Date" %>
     
-<%
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
-	
-	String monthString = "2021-03";
-	
-	Date date = formatter.parse(monthString);
-	
-	Calendar calendar = Calendar.getInstance();
-	calendar.setTime(date);
-	
-	int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
-	
-	int day = (dayNum - 1) * -1 + 1;
-	int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +20,27 @@
 <body>
 
 	<div class="container">
-		<h1 class="text-center"> <%=monthString%> </h1>
+	<%
+	
+	Calendar today = Calendar.getInstance();
+	today.add(Calendar.MONTH, -2);
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+	String title = sdf.format(today.getTime());
+	
+	//월의 첫날 구하기
+	Calendar firstDateOfMonth = Calendar.getInstance();
+	firstDateOfMonth.set(Calendar.MONTH, Calendar.JUNE);
+	firstDateOfMonth.set(Calendar.DAY_OF_MONTH, 1); // 월의 첫번재 날로 변경
+	
+	// 일:1 월:2 화:3 수:4...
+	int firstDayOfMonth = firstDateOfMonth.get(Calendar.DAY_OF_WEEK);
+	out.print("###" + firstDayOfMonth);
+	
+	//월의 말일 구하기
+	int lastDateOfMonth = firstDateOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH);
+	%>
+		<h1 class="text-center"> <%=title%> </h1>
 		<table class="table text-center mt-3">
 			<thead>
 				<tr>
@@ -48,7 +54,8 @@
 				</tr>
 			</thead>
 			<tbody>
-			<%
+			<%	
+				int day = 1 - firstDayOfMonth - 1;
 				for(int i = 0; i < 6; i++) {
 					out.print("<tr class=\"display-4\">");
 					for(int j = 0; j < 7; j++) {
@@ -60,13 +67,13 @@
 						out.print("</td>");
 						day++;
 						
-						if(day > maxDay) {
+						if(day > lastDateOfMonth) {
 							break;
 						}
 					}
 					out.print("</tr>");
 					
-					if(day > maxDay) {
+					if(day > lastDateOfMonth) {
 						break;
 					}
 				}
